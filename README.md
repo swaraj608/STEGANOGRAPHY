@@ -1,49 +1,126 @@
-# 🕵️‍♀️ Text Hiding in Images using Steganography (Cybersecurity Internship Project)
+# 🕵️‍♂️ Steganography Toolkit
 
-This project demonstrates a basic but powerful steganography technique: **hiding secret text inside images** using the **Least Significant Bit (LSB)** method.  
-It's developed as part of my **Cybersecurity Internship** to explore data hiding and privacy techniques.
+A Python-based steganography tool to **hide and reveal secret messages in images** using **LSB (Least Significant Bit)** encoding with optional **XOR encryption**.
 
-## 📂 Project Structure
+---
 
-```bash
-stegano/
-│
-├── hide_data.py # Function to hide secret message inside an image
-├── reveal_data.py # Function to reveal hidden message from an image
-├── main.py # One-click script to hide & reveal the message
-├── requirements.txt # Required libraries (mainly pillow)
-└── flower.png # Your input image (any .png or .jpg)
+## 📌 Features
 
+- 🔐 Hide secret messages inside images
+- 🔓 Reveal hidden messages
+- 🔑 Optional password-based XOR encryption
+- 🧩 Simple command-line interface
+- 🧪 Custom EOF marker to detect message boundaries
 
-
-
-
+---
 
 ## 🖼️ Supported Image Formats
-✅ .png (Recommended)
 
-⚠️ .jpg works, but may reduce accuracy due to compression
+- ✅ **PNG** (recommended – lossless and ideal for steganography)
+- ⚠️ **JPG/JPEG** (not recommended – lossy compression may corrupt hidden data)
+- ✅ Other formats like **BMP**, **GIF** may work, but are **not officially tested**
 
-## 📦 Installation
-Install required libraries:
+> 🔍 **Tip:** Always use lossless formats like PNG to preserve hidden data integrity.
+
+---
+
+## 📁 Project Structure
+
+stegano/
+├── main.py
+├── hide_data.py # Hide message into image
+├── reveal_data.py # Reveal hidden message
+├── utils.py # Encryption helper (SHA-256 + Fernet - currently unused)
+├── flower.png # Sample input image
+├── hidden.png # Image with hidden message (output)
+
+
+---
+
+## 🧠 How It Works
+
+### Hiding a Message
+
+1. Input an image (e.g., `flower.png`)
+2. Provide a secret message and optional password
+3. The message is XOR-encrypted (if password is set)
+4. The message is converted to binary
+5. Each bit is embedded into the LSB of RGB pixel values
+6. A custom EOF marker (`10101010101010101111100011110000`) is appended
+7. Result: A new image (e.g., `hidden.png`) with the secret message
+
+### Revealing a Message
+
+1. Input the image containing the hidden message
+2. Extract binary data from the LSBs of pixel colors
+3. Locate the EOF marker
+4. Convert binary to text
+5. If password is provided, XOR-decrypt the message
+
+---
+
+## 🚀 How to Run
+
+### 🔧 Prerequisites
+
+Install the required dependencies:
 
 ```bash
-pip install -r requirements.txt
-```
-Only one package is needed:
-Pillow (for image processing)
+pip install pillow cryptography
+▶️ Run the Tool
+bash
 
-## 🎓 Internship Takeaways
-Implemented real steganography from scratch using Python
+python main.py
+🧭 Menu Options
+1️⃣ Hide a Message
+Input image filename (e.g., flower.png)
 
-Learned about binary encoding, pixel manipulation & image formats
+Output image filename (e.g., hidden.png)
 
-Practiced clean coding, modular design, and project documentation
+Secret message
 
-## 🛡️ Disclaimer
-This is a basic implementation meant for educational purposes during a cybersecurity internship.
-It does not provide strong cryptographic security.
+Password (optional)
 
-## ✨ Author
+2️⃣ Reveal a Message
+Input image with hidden message (e.g., hidden.png)
+
+Password (if one was used during hiding)
+
+🧪 Example
+Hiding
+bash
+
+python main.py
+Choose option 1
+
+Image: flower.png
+
+Output: hidden.png
+
+Message: Top secret!
+
+Password: mypassword
+
+Revealing
+bash
+
+python main.py
+Choose option 2
+
+Image: hidden.png
+
+Password: mypassword
+
+Output:
+
+scss
+
+🔓 Hidden message: Top secret!
+🛡️ Security Note
+This toolkit uses XOR encryption, which is simple and not secure for serious use.
+
+A stronger encryption option using Fernet (AES) exists in utils.py, but is not currently integrated into the main workflow.
+
+👩‍💻 Author
 Medha Swaraj
-Cybersecurity Internship, 2025
+Cybersecurity Internship,2025
