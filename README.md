@@ -97,9 +97,9 @@ Image: flower.png
 
 Output: hidden.png
 
-Message: Top secret!
+Message: Hello World!This is Medha.
 
-Password: mypassword
+Password: swaraj@123
 
 Revealing
 bash
@@ -109,13 +109,13 @@ Choose option 2
 
 Image: hidden.png
 
-Password: mypassword
+Password: swaraj@123
 
 Output:
 
 scss
 
-🔓 Hidden message: Top secret!
+🔓 Hidden message: Hello World!This is Medha.
 🛡️ Security Note
 This toolkit uses XOR encryption, which is simple and not secure for serious use.
 
